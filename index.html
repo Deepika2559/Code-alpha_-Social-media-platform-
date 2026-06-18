@@ -1,0 +1,166 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Social Media</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    
+<nav>
+    <h2>SocialConnect</h2>
+
+    <button onclick="darkMode()" id="themeBtn">
+        🌙 Dark Mode
+    </button>
+
+    <button>Logout</button>
+</nav>
+    
+
+    <div class="<!container">
+
+        <!-- Profile Section -->
+        <div class="profile">
+            <img src="profile.jpeg" alt="Profile">
+            <h3>Deepika</h3>
+            <p>Frontend Developer | Student</p>
+
+            <div class="stats">
+                <div>
+                    <h4>120</h4>
+                    <p>Followers</p>
+                </div>
+                <div>
+                    <h4>85</h4>
+                    <p>Following</p>
+                </div>
+                <div>
+                    <h4>42</h4>
+                    <p>Posts</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feed Section -->
+        <div class="feed">
+
+            <div class="create-post">
+                <textarea id="postText" placeholder="What's on your mind?"></textarea>
+                <button onclick="addPost()">Post</button>
+            </div>
+
+            <div class="post">
+                <h4>Vasanthi</h4>
+                <p>
+                    Learning Django and building my first social media app!
+                </p>
+
+                <div class="actions">
+                    <button onclick="likePost(this)">❤️ Like<span>0</span></button>
+                    <button onclick="commentPost(this)">💬 Comment</button>
+                </div>
+            </div>
+
+            <div class="post">
+                <h4>Deepika</h4>
+                <p>
+                    Finished my internship project today 🎉
+                </p>
+
+                <div class="actions">
+                    <button onclick="likePost(this)">❤️ Like<span>0</span></button>
+                    <button onclick="commentPost(this)">💬 Comment</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+
+function likePost(button) {
+    let count = button.querySelector("span");
+    count.innerText = parseInt(count.innerText) + 1;
+}
+
+function commentPost() {
+    let comment = prompt("Enter your comment:");
+
+    if(comment) {
+        alert("Comment Added: " + comment);
+    }
+}
+
+function addPost() {
+    let text = document.getElementById("postText").value;
+
+    if (text.trim() === "") {
+        alert("Write something first!");
+        return;
+    }
+
+    let feed = document.querySelector(".feed");
+
+    let newPost = document.createElement("div");
+    newPost.className = "Post";
+
+    newPost.innerHTML = `
+        <h4>Deepika</h4>
+        <p>${text}</p>
+        <button onclick="likePost(this)">
+            ❤️ Like <span>0</span>
+        </button>
+    `;
+
+    feed.prepend(newPost);
+
+    document.getElementById("postText").value = "";
+}
+
+function likePost(button) {
+    let count = button.querySelector("span");
+    count.innerText = parseInt(count.innerText) + 1;
+}
+
+
+</script>
+
+<script>
+function darkMode() {
+
+    document.body.classList.toggle("dark");
+
+    let btn = document.getElementById("themeBtn");
+
+    if(document.body.classList.contains("dark")){
+        btn.innerHTML = "☀️ Light Mode";
+    } else {
+        btn.innerHTML = "🌙 Dark Mode";
+    }
+
+}
+</script>
+
+<script>
+function commentPost(button){
+
+    let comment = prompt("Enter your comment:");
+
+    if(comment){
+
+        let post = button.parentElement.parentElement;
+
+        let commentBox = document.createElement("p");
+
+        commentBox.innerHTML = "💬 " + comment;
+
+        post.appendChild(commentBox);
+    }
+}
+</script>
+
+</body>
+</html>
